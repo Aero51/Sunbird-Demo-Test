@@ -8,7 +8,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.sunbirdimages.demo_test.R
-import dagger.hilt.android.AndroidEntryPoint
 
 /**
  *  Demo Day Application Challenge
@@ -31,14 +30,13 @@ import dagger.hilt.android.AndroidEntryPoint
  *  #2 Setup these two fragments up to work with jetpack navigation, and include this in MainActivity
  *  #3 Fetch data from provided endpoint and deliver it to the UI, don't worry about saving it in a local Room database, this would take to long
  *  #3 Setup an application class using Koin, and include desired modules, inject viewModels in appropriate activities/fragments where needed
-    #4 AstrologyPicturesListFragment will contain a list of images where media_type == "image", as well as max two lines of the "explanation"
-        Please constraint the images to a 4:3 ratio using ConstraintLayout
-    #5 AstrologyPictureDetailsFragment will show the image as well the date and explanation, upon clicking on an item from
-    #6 EXTRA: Do not program this, just think about what would need to be done:
-    If you wanted to use the same project to turn this Astrology app into two apps, maybe Astrology App Lite and Astrology App Full, how would you go about doing that?
+#4 AstrologyPicturesListFragment will contain a list of images where media_type == "image", as well as max two lines of the "explanation"
+Please constraint the images to a 4:3 ratio using ConstraintLayout
+#5 AstrologyPictureDetailsFragment will show the image as well the date and explanation, upon clicking on an item from
+#6 EXTRA: Do not program this, just think about what would need to be done:
+If you wanted to use the same project to turn this Astrology app into two apps, maybe Astrology App Lite and Astrology App Full, how would you go about doing that?
 
  */
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
+
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }

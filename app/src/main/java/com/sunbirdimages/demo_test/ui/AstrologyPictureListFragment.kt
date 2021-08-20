@@ -1,25 +1,25 @@
 package com.sunbirdimages.demo_test.ui
 
 import android.os.Bundle
-import android.util.Log
+
 import androidx.fragment.app.Fragment
 
 import android.view.View
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
+
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sunbirdimages.demo_test.R
 import com.sunbirdimages.demo_test.data.AstrologyData
 import com.sunbirdimages.demo_test.databinding.FragmentAstrologyPictureListBinding
 import com.sunbirdimages.demo_test.util.Resource
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
+
 class AstrologyPictureListFragment : Fragment(R.layout.fragment_astrology_picture_list),
     AstrologyRecyclerViewAdapter.OnItemClickListener {
 
-    private val viewModel: AstrologyViewModel by viewModels()
+    private val viewModel: AstrologyViewModel by viewModel()
     private var _binding: FragmentAstrologyPictureListBinding? = null
     private val binding get() = _binding!!
 

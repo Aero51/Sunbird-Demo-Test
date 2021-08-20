@@ -5,9 +5,9 @@ import com.sunbirdimages.demo_test.api.AstrologyApi
 import com.sunbirdimages.demo_test.util.networkBoundResource
 
 import kotlinx.coroutines.delay
-import javax.inject.Inject
 
-class AstrologyRepository @Inject constructor(
+
+class AstrologyRepository(
     private val api: AstrologyApi,
     private val db: AstrologyDatabase
 ) {
@@ -26,7 +26,7 @@ class AstrologyRepository @Inject constructor(
                 astrologyDao.deleteAllAstrologyData()
                 astrologyDao.insertAstrologyData(astrologyData)
             }
-        },shouldFetch = {data ->
+        }, shouldFetch = { data ->
             data.isEmpty()
         }
 

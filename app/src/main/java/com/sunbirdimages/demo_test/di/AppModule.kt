@@ -4,47 +4,42 @@ import android.app.Application
 import androidx.room.Room
 import com.sunbirdimages.demo_test.api.AstrologyApi
 import com.sunbirdimages.demo_test.data.AstrologyDatabase
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
-@Module
-@InstallIn(SingletonComponent::class)
-object AppModule {
-
-    @Provides
-    @Singleton
-    fun provideRetrofit(): Retrofit {
-
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-
-        val okHttpClient: OkHttpClient = OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
-            .build()
-
-        return Retrofit.Builder()
-            .baseUrl(AstrologyApi.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
-            .build()
-    }
+val appModule = module {
+    single { provideRetrofit() }
+    single { provideAstrologyApi(get()) }
+    single { provideDatabase(get()) }
 
 
-    @Provides
-    @Singleton
-    fun provideAstrologyApi(retrofit: Retrofit): AstrologyApi =
-        retrofit.create(AstrologyApi::class.java)
-
-    @Provides
-    @Singleton
-    fun provideDatabase(app: Application): AstrologyDatabase =
-        Room.databaseBuilder(app, AstrologyDatabase::class.java, "astrology_database")
-            .build()
 }
+
+
+fun provideRetrofit(): Retrofit {
+
+    val loggingInterceptor = HttpLoggingInterceptor()
+    loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+
+    val okHttpClient: OkHttpClient = OkHttpClient.Builder()
+        .addInterceptor(loggingInterceptor)
+        .build()
+
+    return Retrofit.Builder()
+        .baseUrl(AstrologyApi.BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .client(okHttpClient)
+        .build()
+}
+
+
+fun provideAstrologyApi(retrofit: Retrofit): AstrologyApi =
+    retrofit.create(AstrologyApi::class.java)
+
+
+fun provideDatabase(app: Application): AstrologyDatabase =
+    Room.databaseBuilder(app, AstrologyDatabase::class.java, "astrology_database")
+        .build()
