@@ -48,6 +48,7 @@ class AstrologyRecyclerViewAdapter(private val listener: OnItemClickListener):
             binding.apply {
                 Glide.with(itemView)
                     .load(data.url)
+                    .centerCrop()
                     .into(imageView)
 
                 textViewTitle.text = data.title

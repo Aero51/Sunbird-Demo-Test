@@ -18,7 +18,7 @@ class AstrologyRepository @Inject constructor(
             astrologyDao.getAllData()
         },
         fetch = {
-            delay(2000)
+            //delay(2000)
             api.getAstrologyData()
         },
         saveFetchResult = { astrologyData ->
